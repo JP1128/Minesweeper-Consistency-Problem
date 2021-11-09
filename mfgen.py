@@ -6,7 +6,7 @@ Created on Fri Nov  5 16:16:09 2021
 """
 
 from random import randrange
-
+import numpy as np
 
 """
 The following class creates a minefield with atleast one correct configuration.
@@ -65,35 +65,35 @@ class mfgenCorrect:
        mlo = 0
        #tl
        if((x-1)>=0) and ((y-1)>=0):
-           if isinstance(self.field[x-1][y-1],int):
+           if isinstance(self.field[x-1][y-1],int) and self.field[x-1][y-1] >=1:
                mlo+=1
        #tc
        if((x-1)>=0): 
-           if isinstance(self.field[x-1][y],int):
+           if isinstance(self.field[x-1][y],int) and self.field[x-1][y] >=1:
                mlo+=1
        #tr
        if((x-1)>=0) and ((y+1)<self.ylen): 
-           if isinstance(self.field[x-1][y+1],int):
+           if isinstance(self.field[x-1][y+1],int) and self.field[x-1][y+1]>=1:
                mlo+=1
        #left 
        if((y-1)>=0): 
-          if isinstance(self.field[x][y-1],int):
+          if isinstance(self.field[x][y-1],int) and self.field[x][y-1]>=1:
                mlo+=1
        #right
        if((y+1)<self.ylen): 
-           if isinstance(self.field[x][y+1],int):
+           if isinstance(self.field[x][y+1],int) and self.field[x][y+1]>=1:
                mlo+=1
        #bl
        if((x+1)<self.xlen) and ((y-1)>=0): 
-           if isinstance(self.field[x+1][y-1],int):
+           if isinstance(self.field[x+1][y-1],int) and self.field[x+1][y-1]>=1:
                mlo+=1
        #bc
        if((x+1)<self.xlen): 
-           if isinstance(self.field[x+1][y],int):
+           if isinstance(self.field[x+1][y],int) and self.field[x+1][y]>=1:
                mlo+=1
        #br
        if((x+1)<self.xlen) and ((y+1)<self.ylen): 
-           if isinstance(self.field[x+1][y+1],int):
+           if isinstance(self.field[x+1][y+1],int) and self.field[x+1][y+1]>=1:
                mlo+=1
            
        return mlo
@@ -112,13 +112,15 @@ class mfgenCorrect:
             y = 0
             while y < self.ylen:
                 if isinstance(self.field[x][y],str):
-                    cords.append((x,y))
-                    """
-                    Sets all mined cells and cells near numbered
-                    cells to unopened
-                    """
-                    if self.field[x][y] =='*' or self.checkForNum(x,y)!=0:
-                        self.field[x][y] = '_'
+                    cords.append((x,y))  
+                    if self.field[x][y] =='*' :
+                        self.field[x][y] = -1
+                        
+                    elif self.checkForNum(x,y)!=0:
+                        self.field[x][y] = -2
+                       
+                    else:
+                        self.field[x][y] = 0
                 else:
                     numbd.append((x,y))
                 y+=1
@@ -157,8 +159,9 @@ class mfgenCorrect:
         
         #for m in self.field:
            # print(m)   
-
-        return self.field, self.getFreeCords()
+  
+        mr,l = self.getFreeCords()
+        return np.array(self.field), mr,l
         
     """
     Uses a different method to make minefield, random set number of mines.
@@ -210,59 +213,60 @@ class mfgenRand:
        mlo = 0
        #tl
        if((x-1)>=0) and ((y-1)>=0):
-           if isinstance(self.field[x-1][y-1],str):
-               if self.field[x-1][y-1] != '*':
+           if isinstance(self.field[x-1][y-1],str) or self.field[x-1][y-1] <0:
+               if self.field[x-1][y-1] != '*' or self.field[x-1][y-1] != -1: 
                    free+=1
            else:
                mlo+=1
        #tc
        if((x-1)>=0): 
-           if isinstance(self.field[x-1][y],str):
-               if self.field[x-1][y] != '*':
+           if isinstance(self.field[x-1][y],str) or self.field[x-1][y] <0:
+               if self.field[x-1][y] != '*' or self.field[x-1][y] != -1: 
                    free+=1
            else:
                mlo+=1
        #tr
        if((x-1)>=0) and ((y+1)<self.ylen): 
-           if isinstance(self.field[x-1][y+1],str):
-               if self.field[x-1][y+1] != '*':
+           if isinstance(self.field[x-1][y+1],str)or self.field[x-1][y+1]  <0:
+               if self.field[x-1][y+1] != '*' or self.field[x-1][y+1] != -1: 
                    free+=1
            else:
                mlo+=1
        #left 
        if((y-1)>=0): 
-          if isinstance(self.field[x][y-1],str):
-              if self.field[x][y-1] != '*':
+          if isinstance(self.field[x][y-1],str)or self.field[x][y-1]  <0:
+               if self.field[x][y-1] != '*' or self.field[x][y-1] != -1: 
                    free+=1
           else:
                mlo+=1
        #right
        if((y+1)<self.ylen): 
-           if isinstance(self.field[x][y+1],str):
-               if self.field[x][y+1] != '*':
+           if isinstance(self.field[x][y+1],str) or self.field[x][y+1]  <0:
+               if self.field[x][y+1] != '*' or self.field[x][y+1] != -1: 
                    free+=1
            else:
                mlo+=1
        #bl
        if((x+1)<self.xlen) and ((y-1)>=0): 
-           if isinstance(self.field[x+1][y-1],str):
-               if self.field[x+1][y-1] != '*':
+           if isinstance(self.field[x+1][y-1],str)or self.field[x+1][y-1]  <0:
+               if self.field[x+1][y-1] != '*' or self.field[x+1][y-1] != -1: 
                    free+=1
            else:
                mlo+=1
        #bc
        if((x+1)<self.xlen): 
-           if isinstance(self.field[x+1][y],str):
-               if self.field[x+1][y] != '*':
+           if isinstance(self.field[x+1][y],str)or self.field[x+1][y]  <0:
+               if self.field[x+1][y] != '*' or self.field[x+1][y] != -1: 
                    free+=1
            else:
                mlo+=1
        #br
        if((x+1)<self.xlen) and ((y+1)<self.ylen): 
-           if isinstance(self.field[x+1][y+1],str):
-               if self.field[x+1][y+1] != '*':    
+           if isinstance(self.field[x+1][y+1],str)or self.field[x+1][y+1]  <0:
+               if self.field[x+1][y+1] != '*' or self.field[x+1][y+1] != -1:    
                    free+=1
            else:
+               
                mlo+=1
            
        if mark:
@@ -284,7 +288,8 @@ class mfgenRand:
                 self.field[x][y] += 1
     
     """
-    Returns the cordinates for each unopened cell and each numbered cell
+    Returns the cordinates for each unopened cell next to
+    numbered cells and each numbered cell. 
     """
     def getCords(self):
         cords = []
@@ -295,13 +300,15 @@ class mfgenRand:
             y = 0
             while y < self.ylen:
                 if isinstance(self.field[x][y],str):
-                    """
-                    Sets all mined cells and cells near numbered
-                    cells to unopened
-                    """
-                    if self.field[x][y] =='*' or self.checkFor(x,y,False)!=0:
-                        self.field[x][y] = '_'
-                        cords.append((x,y))
+                    cords.append((x,y))
+                
+                    if self.field[x][y] =='*' :
+                        self.field[x][y] = -1
+                    elif self.checkFor(x,y,False)!=0:
+                        self.field[x][y] = -2
+                    else:
+                        self.field[x][y] = 0
+                    
                 else:
                     numbd.append((x,y))
                 y+=1
@@ -319,7 +326,7 @@ class mfgenRand:
     def makeField(self,x,y,mark):
         self.xlen = x
         self.ylen = y
-        
+        self.field = None
         i = 0
         field = []
         while i < x:
@@ -343,30 +350,36 @@ class mfgenRand:
                 j+=1
             
             i+=1
-        return self.field, self.getCords()   
+       
+        mk,vx = self.getCords() 
+        return self.field, mk,vx  
 #uncomment following to use    
-"""
+
 mk = mfgenCorrect()
 mx = 20
 my = 20
-mf,l = mk.makeField(mx,my,(mx*my)/4)
+mf,l,o = mk.makeField(mx,my,(mx*my)//20)
 for i in mf:
     word = ''
     for z in i:
-        
-        word+= str(z) + ' '
+        if z > -1:
+            word+= str(z) + '  '
+        else:
+            word+= str(z) + ' '
     print(word) 
     
 print("mfgenCorrect")
 mr = mfgenRand()
-kl, o = mr.makeField(mx,my,False)
+kl, o, mj = mr.makeField(mx,my,False)
 for i in kl:
     
     word = ''
     for z in i:
         
-        word+= str(z) + ' '
+        if z > -1:
+            word+= str(z) + '  '
+        else:
+            word+= str(z) + ' '
     print(word)  
 
 print("mfgenRand")
-"""
