@@ -352,9 +352,9 @@ class mfgenRand:
             i+=1
        
         mk,vx = self.getCords() 
-        return self.field, mk,vx  
-#uncomment following to use    
-
+        return np.array(self.field), mk,vx  
+#uncomment following to test    
+"""
 mk = mfgenCorrect()
 mx = 20
 my = 20
@@ -383,3 +383,4 @@ for i in kl:
     print(word)  
 
 print("mfgenRand")
+"""
