@@ -3,11 +3,18 @@ import numpy as np
 
 def neighbors(r: int, c: int, v: int, h: int):
     """
-    :param r:
-    :param c:
-    :param v:
-    :param h:
-    :return:
+    Minefield utility function. Given the coordinate (r, c)
+    and the shape of the field (v, h), return the coordinates
+    of neighboring squares. Two numpy arrays are returned such
+    that the first array [a_0, a_1, ..., a_n] and the second
+    array [b_0, b_1, ..., b_n] form n coordinates (a_0, b_0),
+    (a_1, b_1), ..., (a_n, b_n).
+
+    :param r: row offset
+    :param c: column offset
+    :param v: vertical height
+    :param h: horizontal width
+    :return: array of row and array of columnss
     """
     _top = max(r - 1, 0)
     _lef = max(c - 1, 0)
