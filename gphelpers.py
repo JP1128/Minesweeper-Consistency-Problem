@@ -24,15 +24,18 @@ def cordadjust(mines, y):
 Using the minefield generator that JP made, this function 
 adjusts it to differentiate between the empty cells
 near numbered-cell adjacent cells (-2), and empty not near
-numbered-cells (0). This also gets the cords for 0 and -2
+numbered-cells (0). This also gets the cords for 0 and -2.
+Dummy field cords are set to -5 for any that are 0.
 """
 
 def dummymf(mf):
     md = np.array(mf, copy=True)
+    dummyfield = np.array(mf, copy=True)
     cords = []
     i = 0
     x = len(md)
     y = len(md[0])
+    sr = True
     while i < x:
         j = 0
         while j < y:
@@ -71,8 +74,18 @@ def dummymf(mf):
                     if md[i + 1][j + 1] > 0:
                         md[i][j] = -2
                 cords.append((i, j))
+                if  md[i][j] == 0 and sr :
+                    if(len(cords)>1):
+                        cords[len(cords)-1] = cords[0]
+                        cords[0] = (i,j)
+                        dummyfield[i][j] = -5
+                    sr = False
+                else:
+                    dummyfield[i][j] = -5
+            if dummyfield[i][j] == -1:
+                dummyfield[i][j] = -5
             j = j + 1
         i = i + 1
 
-
-    return md, cords
+    print(dummyfield)
+    return md, cords, dummyfield
