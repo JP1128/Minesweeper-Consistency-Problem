@@ -19,4 +19,15 @@ Minesweeper AI is a Python program that use state-of-the-art genetic algorithm w
 ![](demo_hard.gif?raw=true)
 
 ## Final Paper
-[Link to paper](https://github.com/user/repo/blob/branch/other_file.md)
+<p>
+<a href="https://github.com/JP1128/Minesweeper-Consistency-Problem/blob/master/final_paper.pdf"><img src="https://img.shields.io/badge/LINK TO PAPER-0077b5?&style=for-the-badge"/></a>&nbsp;
+</p>
+
+### Abstract
+
+Minesweeper is a puzzle game that was bundled with early versions of windows intended to
+teach the users about how to interact with the interface. It has received a significant attention
+from the mathematicians and computer scientists, who developed a myriad of methods in an
+attempt to solve or approach the game. In this paper, we explored ways of utilizing different
+evolutionary algorithms, mainly genetic algorithm and genetic programming, to create a solver
+for the minesweeper game or problem related to it.
