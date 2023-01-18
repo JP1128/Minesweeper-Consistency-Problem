@@ -1,6 +1,7 @@
 # Minesweeper AI
 <p>
   <a><img src="https://img.shields.io/badge/CSCI 4360-Evolutionary Programming-F3BF1E?style=for-the-badge"/></a>
+  <a href="https://github.com/JP1128/Minesweeper-Consistency-Problem/blob/master/final_paper.pdf"><img src="https://img.shields.io/badge/LINK TO PAPER-0077b5?&style=for-the-badge"/></a>&nbsp;
 </p>
 
 Authors: **Jae Park (JP)**, **Joey Liou**, **Ethan Bray**, **Ellison Pyon**
@@ -17,11 +18,6 @@ Minesweeper AI is a Python program that use state-of-the-art genetic algorithm w
 
 ### Hard 16 x 30 with 99 mines
 ![](demo_hard.gif?raw=true)
-
-## Final Paper
-<p>
-<a href="https://github.com/JP1128/Minesweeper-Consistency-Problem/blob/master/final_paper.pdf"><img src="https://img.shields.io/badge/LINK TO PAPER-0077b5?&style=for-the-badge"/></a>&nbsp;
-</p>
 
 ### Abstract
 
